@@ -1,0 +1,76 @@
+﻿@model IEnumerable<ApplicationUser>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-plain">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title mt-0"> All Users</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tr class="">
+                                <th>
+                                    First Name
+                                </th>
+                                <th>
+                                    Last Name
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                                <th>
+                                    Phone Number
+                                </th>
+                                <th>
+                                    Role
+                                </th>
+                                <td>
+                                    Actions
+                                </td>
+                            </tr>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(model => item.FirstName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => item.LastName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => item.Email)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => item.PhoneNumber)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(model => item.UserRoles.FirstOrDefault().Role.Name)
+                                        </td>
+                                        <td>
+                                        <td>
+                                            <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal">
+                                                <i class="material-icons text-success">edit</i>
+                                            </a>
+
+                                            <a href="javascript:void(0)">
+                                                <i class="material-icons text-danger">delete</i>
+                                            </a>
+                                        </td>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

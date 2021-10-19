@@ -19,5 +19,7 @@ namespace AmeliorateAegis.Models
 
         [NotMapped]
         public bool IsSuperAdmin { get; set; }
+
+        public virtual ICollection<ApplicationUserRole> UserRoles { get; set; }
     }
 }
