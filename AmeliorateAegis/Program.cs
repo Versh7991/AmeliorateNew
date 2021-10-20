@@ -1,5 +1,9 @@
+using AmeliorateAegis.Data;
+using AmeliorateAegis.Models;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,26 +16,45 @@ namespace AmeliorateAegis
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public async static Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
-
+            var host = CreateHostBuilder(args).Build();
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var loggerFactory = services.GetRequiredService<ILoggerFactory>();
                 try
                 {
-
-                    //  Specify a directory name that does not exist for this demo.
-                    string dir = @"c:\78fe9lk";
-
-                    // If this directory does not exist, a DirectoryNotFoundException is thrown
-                    // when attempting to set the current directory.
-                    Directory.SetCurrentDirectory(dir);
+                    var context = services.GetRequiredService<ApplicationDbContext>();
+                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    await ContextSeed.SeedRolesAsync(userManager, roleManager);
+                    await ContextSeed.SeedSuperAdminAsync(userManager, roleManager);
                 }
-                catch (DirectoryNotFoundException dirEx)
+                catch (Exception ex)
                 {
-                    // Let the user know that the directory did not exist.
-                    Console.WriteLine("Directory not found: " + dirEx.Message);
+                    var logger = loggerFactory.CreateLogger<Program>();
+                    logger.LogError(ex, "An error occurred seeding the DB.");
                 }
             }
+            CreateHostBuilder(args).Build().Run();
+
+            try
+            {
+
+                //  Specify a directory name that does not exist for this demo.
+                string dir = @"c:\78fe9lk";
+
+                // If this directory does not exist, a DirectoryNotFoundException is thrown
+                // when attempting to set the current directory.
+                Directory.SetCurrentDirectory(dir);
+            }
+            catch (DirectoryNotFoundException dirEx)
+            {
+                // Let the user know that the directory did not exist.
+                Console.WriteLine("Directory not found: " + dirEx.Message);
+            }
+        }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)

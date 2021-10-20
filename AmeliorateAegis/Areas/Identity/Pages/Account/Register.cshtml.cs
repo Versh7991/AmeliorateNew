@@ -21,15 +21,15 @@ namespace AmeliorateAegis.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             RoleManager<IdentityRole> roleManager)
@@ -70,6 +70,9 @@ namespace AmeliorateAegis.Areas.Identity.Pages.Account
             public string Name { get; set; }
 
             [Required]
+            public string LastName { get; set; }
+
+            [Required]
             [Display(Name = "Phone Number")]
             public string PhoneNumber { get; set; }
 
@@ -99,40 +102,12 @@ namespace AmeliorateAegis.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    if (!await _roleManager.RoleExistsAsync(SD.SuperAdmin))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(SD.SuperAdmin));
-                    }
-
-                    if (!await _roleManager.RoleExistsAsync(SD.LiasonCoordinator))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(SD.LiasonCoordinator));
-                    }
-
-                    if (!await _roleManager.RoleExistsAsync(SD.RegionalManager))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(SD.RegionalManager));
-                    }
-
-                    if (!await _roleManager.RoleExistsAsync(SD.Teacher))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(SD.Teacher));
-                    }
-
                     if (!await _roleManager.RoleExistsAsync(SD.Parent))
                     {
                         await _roleManager.CreateAsync(new IdentityRole(SD.Parent));
                     }
 
-
-                    if (Input.IsSuperAdmin)
-                    {
-                        await _userManager.AddToRoleAsync(user, SD.SuperAdmin);
-                    }
-                    else
-                    {
-                        await _userManager.AddToRoleAsync(user, SD.Parent);
-                    }
+                    await _userManager.AddToRoleAsync(user, SD.Parent);
 
                     _logger.LogInformation("User created a new account with password.");
 

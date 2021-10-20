@@ -10,11 +10,14 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using AmeliorateAegis.ViewModels;
 using AmeliorateAegis.Data;
+using AmeliorateAegis.Utility;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AmeliorateAegis.Controllers
 {
     //[Route("api/[controller]")]
     [Area("Liason")]
+    [Authorize(Roles = SD.ProvincialLiason)]
     public class RegionalsController : Controller
     {
 

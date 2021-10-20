@@ -31,7 +31,7 @@
                     <hr />
                     <div asp-validation-summary="All" class="text-danger"></div>
                 </div>
-                <form method="post" role="form" class="php-email-form" id="account">
+                <form method="post" asp-route-returnUrl="@Model.ReturnUrl">
                     <div class="row">
                         <div class="col-md-6 mb-3 mx-auto">
                             <div class="form-group">
@@ -57,8 +57,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <a class="btn btn-a" asp-area="Liason" asp-controller="Financial" asp-action="Index">Login</a>
-                            @*<button type="submit" class="btn btn-a">Log in</button>*@
+                            @*<a class="btn btn-a" asp-area="Liason" asp-controller="Financial" asp-action="Index">Login</a>*@
+                            <button type="submit" class="btn btn-a">Log in</button>
                         </div>
                     </div>
                 </form>

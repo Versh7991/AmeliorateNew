@@ -10,10 +10,13 @@ using System.Diagnostics;
 using AmeliorateAegis.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using AmeliorateAegis.Data;
+using AmeliorateAegis.Utility;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AmeliorateAegis.Controllers
 {
     [Area("Liason")]
+    [Authorize(Roles = SD.ProvincialLiason)]
     public class FinancialController : Controller
     {
 

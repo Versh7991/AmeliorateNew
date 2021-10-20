@@ -1,6 +1,8 @@
 ﻿using AmeliorateAegis.Data;
 using AmeliorateAegis.Models;
+using AmeliorateAegis.Utility;
 using AmeliorateAegis.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +15,7 @@ using System.Threading.Tasks;
 namespace AmeliorateAegis.Controllers
 {
     [Area("Liason")]
-
+    [Authorize(Roles = SD.ProvincialLiason)]
     public class ProfileController : Controller
     {
         private readonly ApplicationDbContext dbContext;

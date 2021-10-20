@@ -11,19 +11,22 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using AmeliorateAegis.Models;
+using System.Security.Claims;
+using AmeliorateAegis.Utility;
 
 namespace AmeliorateAegis.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, 
+        public LoginModel(SignInManager<ApplicationUser> signInManager,
             ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager)
+            UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -83,7 +86,7 @@ namespace AmeliorateAegis.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    return await RedirectLoggedInUser(Input.Email);
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -103,6 +106,23 @@ namespace AmeliorateAegis.Areas.Identity.Pages.Account
 
             // If we got this far, something failed, redisplay form
             return Page();
+        }
+
+        private async Task<IActionResult> RedirectLoggedInUser(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            var role = await _userManager.GetRolesAsync(user);
+            switch (role.FirstOrDefault())
+            {
+                case SD.SuperAdmin:
+                    return RedirectToAction("Index", "AdminUsers", new { area = "Admin" });
+                case SD.Teacher:
+                    return RedirectToAction("Index", "Dashboard", new { area = "Teacher" });
+                case SD.ProvincialLiason:
+                    return RedirectToAction("FinancialTable", "Financial", new { area = "Liason" });
+                default:
+                    return RedirectToAction("Index", "Home", new { area = "Public" }); ;
+            }
         }
     }
 }

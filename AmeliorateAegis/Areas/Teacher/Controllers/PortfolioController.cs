@@ -1,7 +1,9 @@
 ﻿using AmeliorateAegis.Data;
 using AmeliorateAegis.Models;
 using AmeliorateAegis.Models.ViewModels;
+using AmeliorateAegis.Utility;
 using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,6 +14,7 @@ using System.Threading.Tasks;
 namespace AmeliorateAegis.Areas.Teacher.Controllers
 {
     [Area("Teacher")]
+    [Authorize(Roles = SD.Teacher)]
     public class PortfolioController : Controller
     {
         private readonly ApplicationDbContext _db;

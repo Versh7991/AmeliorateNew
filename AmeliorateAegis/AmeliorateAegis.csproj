@@ -8,6 +8,8 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20211010180424_AddedApplicationUser.cs" />
     <Compile Remove="Data\Migrations\20211010180424_AddedApplicationUser.Designer.cs" />
+    <Compile Remove="Data\Migrations\20211020173545_AddedRoleManagement.cs" />
+    <Compile Remove="Data\Migrations\20211020173545_AddedRoleManagement.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,7 +59,6 @@
 
   <ItemGroup>
     <Folder Include="Reports\" />
-    <Folder Include="Utility\" />
   </ItemGroup>
 
 </Project>
