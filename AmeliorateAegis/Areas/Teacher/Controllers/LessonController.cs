@@ -40,20 +40,28 @@ namespace AmeliorateAegis.Areas.Teacher.Controllers
         {
             if (ModelState.IsValid)
             {
+                var exists = await _db.LessonPlans.FirstOrDefaultAsync(x => x.Day == lessonVm.Lesson.Day && x.StartTime == lessonVm.Lesson.StartTime);
+                if (exists != null)
+                {
+                    _notyf.Error("There's Already A Lesson Scheduled for the selected time");
+
+                    return new JsonResult(new { status = "Eroro", message = "An Error Occurred" });
+                }
+
                 var lesson = new LessonPlan
                 {
                     Description = lessonVm.Lesson.Description,
                     TeacherId = 1,
-                    StartTime = DateTime.Now,
+                    StartTime = lessonVm.Lesson.StartTime,
                     Day = lessonVm.Lesson.Day,
-                    EndTime = DateTime.Now.AddHours(2)
+                    EndTime = lessonVm.Lesson.EndTime
                 };
                 _db.Add(lesson);
                 await _db.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(lessonVm);
+            return View(nameof(Index), lessonVm);
         }
     }
 }

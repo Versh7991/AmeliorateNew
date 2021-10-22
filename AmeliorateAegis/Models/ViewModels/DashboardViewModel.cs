@@ -7,7 +7,7 @@ namespace AmeliorateAegis.Models.ViewModels
 {
     public class DashboardViewModel
     {
-        public IEnumerable<Pupil> Pupils { get; set; }
+        public IEnumerable<Pupil> Pupils { get; set; } = new List<Pupil>();
         public int PupilCount { get; set; }
         public int ParentCount { get; set; }
         public int LessonCount { get; set; }

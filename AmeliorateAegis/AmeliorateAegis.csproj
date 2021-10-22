@@ -10,6 +10,8 @@
     <Compile Remove="Data\Migrations\20211010180424_AddedApplicationUser.Designer.cs" />
     <Compile Remove="Data\Migrations\20211020173545_AddedRoleManagement.cs" />
     <Compile Remove="Data\Migrations\20211020173545_AddedRoleManagement.Designer.cs" />
+    <Compile Remove="Data\Migrations\20211022140418_Added Attributes.cs" />
+    <Compile Remove="Data\Migrations\20211022140418_Added Attributes.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

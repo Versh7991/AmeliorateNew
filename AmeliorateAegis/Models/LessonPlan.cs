@@ -13,10 +13,22 @@ namespace AmeliorateAegis.Models
         [Key]
         public long Id { get; set; }
         public DateTime CreationTime { get; set; }
+
+        [Display(Name = "Start Time")]
+        [Required(ErrorMessage = "Please select Start Time")]
+        [DataType(DataType.Time)]
         public DateTime StartTime { get; set; }
+
+        [Display(Name = "End Time")]
+        [Required(ErrorMessage = "Please select End Time")]
+        [DataType(DataType.Time)]
         public DateTime EndTime { get; set; }
+
+        [Required]
         public DayOfWeek Day { get; set; }
         public LessonPlanStatus Status { get; set; }
+
+        [Required]
         public string Description { get; set; }
         [ForeignKey(nameof(TeacherId))]
         public Teacher Teacher { get; set; }
@@ -27,6 +39,5 @@ namespace AmeliorateAegis.Models
             CreationTime = DateTime.Now;
             Status = LessonPlanStatus.Done;
         }
-
     }
 }

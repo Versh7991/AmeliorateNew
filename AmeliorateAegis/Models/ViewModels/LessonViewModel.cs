@@ -8,6 +8,6 @@ namespace AmeliorateAegis.Models.ViewModels
     public class LessonViewModel
     {
         public LessonPlan Lesson { get; set; }
-        public IEnumerable<LessonPlan> LessonPlans { get; set; }
+        public IEnumerable<LessonPlan> LessonPlans { get; set; } = new List<LessonPlan>();
     }
 }
