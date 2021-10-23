@@ -30,6 +30,11 @@ namespace AmeliorateAegis
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                     await ContextSeed.SeedRolesAsync(userManager, roleManager);
                     await ContextSeed.SeedSuperAdminAsync(userManager, roleManager);
+                    await ContextSeed.SeedParentAsync(userManager, roleManager);
+                    await ContextSeed.SeedTeacherAsync(userManager, roleManager);
+                    await ContextSeed.SeedManagerAsync(userManager, roleManager);
+                    await ContextSeed.SeedLiasonAsync(userManager, roleManager);
+                    await ContextSeed.SeedCoordinatorAsync(userManager, roleManager);
                 }
                 catch (Exception ex)
                 {

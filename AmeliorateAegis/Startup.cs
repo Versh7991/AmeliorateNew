@@ -1,4 +1,6 @@
 using AmeliorateAegis.Data;
+using AmeliorateAegis.Data.Services.Regional.Centres;
+using AmeliorateAegis.Data.Services.Regional.Visitor;
 using AmeliorateAegis.Models;
 using AspNetCoreHero.ToastNotification;
 using AspNetCoreHero.ToastNotification.Extensions;
@@ -37,6 +39,9 @@ namespace AmeliorateAegis
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
+
+            services.AddTransient<ICentreService, CentreService>();
+            services.AddTransient<IVisitorService, VisitorService>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

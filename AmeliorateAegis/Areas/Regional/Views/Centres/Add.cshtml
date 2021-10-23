@@ -1,0 +1,127 @@
+﻿@using AmeliorateAegis.Areas.Regional.Models
+
+@model CentreDto
+@{
+    ViewData["Title"] = "Centres";
+}
+
+<div class="container" style="padding:30px;">
+    <div class="section-title">
+        <h2>Add Centre</h2>
+    </div>
+
+    <form method="post">
+        @*@if (Model.RegionalId != 0)
+            {
+                <Input type="hidden" asp-for="RegionalId" />
+            }*@
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="form-group row">
+            <div class="col-6">
+                <div class="cold-6">
+                    <div>
+                        <label asp-for="CentreCode"> Centre Code</label>
+                    </div>
+                    <input asp-for="CentreCode" class="form-control" />
+                    <span asp-validation-for="CentreCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="cold-6">
+                    <div>
+                        <label asp-for="CentreName">Centre Name</label>
+                    </div>
+                    <input asp-for="CentreName" class="form-control" />
+                    <span asp-validation-for="CentreName" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-12">
+                <div class="cold-6">
+                    <div>
+                        <label asp-for="AddressLine1">AddressLine 1</label>
+                    </div>
+                    <input asp-for="AddressLine1" class="form-control" />
+                    <span asp-validation-for="AddressLine1" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-12">
+                <div class="cold-6">
+                    <div>
+                        <label asp-for="AddressLine2">AddressLine 2</label>
+                    </div>
+                    <input asp-for="AddressLine2" class="form-control" />
+                    <span asp-validation-for="AddressLine2" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-12">
+                <div class="cold-6">
+                    <div>
+                        <label asp-for="Suburb">Suburb</label>
+                    </div>
+                    <input asp-for="Suburb" class="form-control" />
+                    <span asp-validation-for="Suburb" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-12">
+                <div class="cold-6">
+                    <div>
+                        <label asp-for="City">City</label>
+                    </div>
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-12">
+                <div class="cold-6">
+                    <div>
+                        <label asp-for="Province">Province</label>
+                    </div>
+                    <select class="form-control" id="inputGroupSelect01">
+                        <option selected>-Please select a province-</option>
+                        <option value="1">EC</option>
+                        <option value="2">GP</option>
+                        <option value="3">CPT</option>
+                    </select>
+                    <!--<input asp-for="Province" class="form-control" />
+                    <span asp-validation-for="Province" class="text-danger"></span>
+                        -->
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-2">
+                <a asp-action="RegionalManager" class="btn btn-success form-control">VIEW LIST</a>
+            </div>
+
+            <div class="col-2 align-content-end">
+                <button type="submit" class="btn btn-primary text-capitalize" form-control>
+                    ADD Centre
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+@*@section Scripts{
+        <partial name="_ValidationScriptsPartial" />
+    }*@

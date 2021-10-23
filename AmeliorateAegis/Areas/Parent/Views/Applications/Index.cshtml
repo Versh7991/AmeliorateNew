@@ -1,0 +1,76 @@
+﻿@model IEnumerable<AmeliorateAegis.Models.Applications.Application>
+
+@{
+    ViewData["Title"] = "Applications";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-plain">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title mt-0"> Applications</h4>
+                </div>
+                <div class="card-body">
+                    <a class="btn btn-success float-right text-white mb-2" asp-action="Create">New</a>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CreationTime)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ModifiedTime)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Parent)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Pupil)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Centre)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Status)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CreationTime)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ModifiedTime)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Parent.Id)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Pupil.Id)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Centre.Id)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Status)
+                                        </td>
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

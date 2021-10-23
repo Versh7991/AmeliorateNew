@@ -1,0 +1,45 @@
+﻿@using AmeliorateAegis.Areas.Regional.Models;
+
+@model IEnumerable<CentreDto>
+
+@{
+    ViewData["Title"] = "Centres";
+}
+<br />
+<div class="container row p-0 m-0">
+    <div class="col-6">
+        <h2 class="text-info">Center List</h2>
+    </div>
+    <div class="col-3 offset-3">
+        <a asp-area="Regional" asp-action="Add" asp-controller="Center" class="btn btn-info form-control text-white">Add Center</a>
+    </div>
+
+
+    <div class="col-12 border p-3">
+        <table id="DT_load" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Center Code</th>
+                    <th>Center Name</th>
+                    <th>Address</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var center in Model)
+                {
+                    <tr>
+                        <td>@center.CentreCode</td>
+                        <td>@center.CentreName</td>
+                        <td>@center.AddressLine1 @center.AddressLine2 ,@center.Suburb ,@center.City , @center.Province </td>
+                        <td>
+                            <a class="text-primary">Edit</a>
+                            <a class="text-danger">Delete</a>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

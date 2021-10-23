@@ -1,10 +1,14 @@
 ﻿using AmeliorateAegis.Areas.Teacher.Data;
 using AmeliorateAegis.Models;
+using AmeliorateAegis.Models.Parents;
+using AmeliorateAegis.Models.Teachers;
+using AmeliorateAegis.Models.Visitors;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using AmeliorateAegis.Models.Applications;
 
 namespace AmeliorateAegis.Data
 {
@@ -16,8 +20,8 @@ namespace AmeliorateAegis.Data
         }
 
         public DbSet<LessonPlan> LessonPlans { get; set; }
-        public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Parent> Parents { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Pupil> Pupils { get; set; }
         public DbSet<Centre> Centres { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
@@ -35,10 +39,19 @@ namespace AmeliorateAegis.Data
         public DbSet<Meeting> Meetings { get; set; }
 
 
+        // Regional Coordinator
+        public DbSet<Centre> Centre { get; set; }
+        public DbSet<ScheduleVisit> ScheduleVisits { get; set; }
+
+
+        // Parent
+        public DbSet<Application> Applications { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Seed();
         }
+        public DbSet<AmeliorateAegis.Models.Applications.Application> Application { get; set; }
     }
 }

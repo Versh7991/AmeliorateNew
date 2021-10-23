@@ -120,6 +120,10 @@ namespace AmeliorateAegis.Areas.Identity.Pages.Account
                     return RedirectToAction("Index", "Dashboard", new { area = "Teacher" });
                 case SD.ProvincialLiason:
                     return RedirectToAction("FinancialTable", "Financial", new { area = "Liason" });
+                case SD.RegionalManager:
+                    return RedirectToAction("Index", "Dashboard", new { area = "Manager" });
+                case SD.Parent:
+                    return RedirectToAction("Index", "Applications", new { area = "Parent" });
                 default:
                     return RedirectToAction("Index", "Home", new { area = "Public" }); ;
             }

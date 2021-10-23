@@ -70,14 +70,13 @@ namespace AmeliorateAegis.Areas.Identity.Pages.Account
             public string Name { get; set; }
 
             [Required]
+            [Display(Name = "Last Name")]
             public string LastName { get; set; }
 
             [Required]
             [Display(Name = "Phone Number")]
             public string PhoneNumber { get; set; }
 
-            [Display(Name = "Super Admin")]
-            public bool IsSuperAdmin { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)

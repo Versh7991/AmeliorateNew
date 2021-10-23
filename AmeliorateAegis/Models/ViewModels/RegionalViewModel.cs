@@ -15,8 +15,6 @@ namespace AmeliorateAegis.ViewModels
 
         public string LastName { get; set; }
 
-      
-
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

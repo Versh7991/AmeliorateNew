@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace AmeliorateAegis.Areas.Teacher.Controllers
@@ -51,12 +52,13 @@ namespace AmeliorateAegis.Areas.Teacher.Controllers
                 var lesson = new LessonPlan
                 {
                     Description = lessonVm.Lesson.Description,
-                    TeacherId = 1,
+                    TeacherId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                     StartTime = lessonVm.Lesson.StartTime,
                     Day = lessonVm.Lesson.Day,
                     EndTime = lessonVm.Lesson.EndTime
                 };
                 _db.Add(lesson);
+
                 await _db.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));

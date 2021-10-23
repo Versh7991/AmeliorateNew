@@ -15,9 +15,46 @@ namespace AmeliorateAegis.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.19")
+                .HasAnnotation("ProductVersion", "3.1.20")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("AmeliorateAegis.Models.Applications.Application", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("CentreId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ParentId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<long>("PupilId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CentreId");
+
+                    b.HasIndex("ParentId");
+
+                    b.HasIndex("PupilId");
+
+                    b.ToTable("Applications");
+                });
 
             modelBuilder.Entity("AmeliorateAegis.Models.Attendance", b =>
                 {
@@ -32,8 +69,8 @@ namespace AmeliorateAegis.Data.Migrations
                     b.Property<long>("PupilId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("TeacherId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("TeacherId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -57,10 +94,22 @@ namespace AmeliorateAegis.Data.Migrations
                     b.Property<string>("AddressLine2")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Suburb")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -73,7 +122,7 @@ namespace AmeliorateAegis.Data.Migrations
                             Id = 1L,
                             AddressLine1 = "123 John Newton SW",
                             AddressLine2 = "Newton Park",
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 824, DateTimeKind.Local).AddTicks(9723),
+                            CreationTime = new DateTime(2021, 10, 23, 20, 28, 17, 654, DateTimeKind.Local).AddTicks(3911),
                             Name = "Kabega"
                         },
                         new
@@ -81,7 +130,7 @@ namespace AmeliorateAegis.Data.Migrations
                             Id = 2L,
                             AddressLine1 = "237 John Newton SW",
                             AddressLine2 = "New Brighton",
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 825, DateTimeKind.Local).AddTicks(8827),
+                            CreationTime = new DateTime(2021, 10, 23, 20, 28, 17, 657, DateTimeKind.Local).AddTicks(2705),
                             Name = "Sol Futi"
                         },
                         new
@@ -89,7 +138,7 @@ namespace AmeliorateAegis.Data.Migrations
                             Id = 3L,
                             AddressLine1 = "123 John Newton SW",
                             AddressLine2 = "Newton Park",
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 825, DateTimeKind.Local).AddTicks(8924),
+                            CreationTime = new DateTime(2021, 10, 23, 20, 28, 17, 657, DateTimeKind.Local).AddTicks(2810),
                             Name = "Daku"
                         });
                 });
@@ -146,6 +195,7 @@ namespace AmeliorateAegis.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EndTime")
@@ -157,8 +207,8 @@ namespace AmeliorateAegis.Data.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<long>("TeacherId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("TeacherId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -189,127 +239,6 @@ namespace AmeliorateAegis.Data.Migrations
                     b.ToTable("Meetings");
                 });
 
-            modelBuilder.Entity("AmeliorateAegis.Models.Parent", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("CentreId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DoB")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CentreId");
-
-                    b.ToTable("Parents");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CentreId = 1L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(7893),
-                            DoB = new DateTime(1994, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(8894),
-                            FirstName = "Jane",
-                            LastName = "Pope"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CentreId = 2L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(9426),
-                            DoB = new DateTime(1988, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(9458),
-                            FirstName = "Thembeka",
-                            LastName = "Qweba"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            CentreId = 3L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(9485),
-                            DoB = new DateTime(1976, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(9487),
-                            FirstName = "Jane",
-                            LastName = "Doe"
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            CentreId = 2L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(9489),
-                            DoB = new DateTime(1967, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(9490),
-                            FirstName = "Jon",
-                            LastName = "Doe"
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            CentreId = 1L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(9492),
-                            DoB = new DateTime(1992, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(9493),
-                            FirstName = "Joshua",
-                            LastName = "Doe"
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            CentreId = 3L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(9495),
-                            DoB = new DateTime(1972, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(9496),
-                            FirstName = "Thandi",
-                            LastName = "Newton"
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            CentreId = 2L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(9497),
-                            DoB = new DateTime(1996, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(9498),
-                            FirstName = "Amanda",
-                            LastName = "Qweba"
-                        },
-                        new
-                        {
-                            Id = 8L,
-                            CentreId = 3L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(9499),
-                            DoB = new DateTime(2000, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(9500),
-                            FirstName = "Amyoli",
-                            LastName = "Soze"
-                        },
-                        new
-                        {
-                            Id = 9L,
-                            CentreId = 1L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(9502),
-                            DoB = new DateTime(1991, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(9503),
-                            FirstName = "Jongokhaya",
-                            LastName = "Khwili"
-                        },
-                        new
-                        {
-                            Id = 10L,
-                            CentreId = 3L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(9505),
-                            DoB = new DateTime(1989, 10, 12, 14, 10, 45, 826, DateTimeKind.Local).AddTicks(9506),
-                            FirstName = "Thandeka",
-                            LastName = "Khehle"
-                        });
-                });
-
             modelBuilder.Entity("AmeliorateAegis.Models.Period", b =>
                 {
                     b.Property<long>("Id")
@@ -331,25 +260,25 @@ namespace AmeliorateAegis.Data.Migrations
                         new
                         {
                             Id = 1L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(115),
+                            CreationTime = new DateTime(2021, 10, 23, 20, 28, 17, 658, DateTimeKind.Local).AddTicks(7886),
                             Name = "Term 1"
                         },
                         new
                         {
                             Id = 2L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(787),
+                            CreationTime = new DateTime(2021, 10, 23, 20, 28, 17, 658, DateTimeKind.Local).AddTicks(9394),
                             Name = "Term 2"
                         },
                         new
                         {
                             Id = 3L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(809),
+                            CreationTime = new DateTime(2021, 10, 23, 20, 28, 17, 658, DateTimeKind.Local).AddTicks(9443),
                             Name = "Term 3"
                         },
                         new
                         {
                             Id = 4L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(811),
+                            CreationTime = new DateTime(2021, 10, 23, 20, 28, 17, 658, DateTimeKind.Local).AddTicks(9446),
                             Name = "Term 4"
                         });
                 });
@@ -429,35 +358,35 @@ namespace AmeliorateAegis.Data.Migrations
                         {
                             Id = 1L,
                             CentreId = 1L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(5694),
+                            CreationTime = new DateTime(2021, 10, 23, 20, 28, 17, 659, DateTimeKind.Local).AddTicks(567),
                             Name = "Literacy Development"
                         },
                         new
                         {
                             Id = 2L,
                             CentreId = 2L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(6618),
+                            CreationTime = new DateTime(2021, 10, 23, 20, 28, 17, 659, DateTimeKind.Local).AddTicks(2355),
                             Name = "Math And Science"
                         },
                         new
                         {
                             Id = 3L,
                             CentreId = 1L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(6646),
+                            CreationTime = new DateTime(2021, 10, 23, 20, 28, 17, 659, DateTimeKind.Local).AddTicks(2410),
                             Name = "Song And Music"
                         },
                         new
                         {
                             Id = 4L,
                             CentreId = 1L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(6648),
+                            CreationTime = new DateTime(2021, 10, 23, 20, 28, 17, 659, DateTimeKind.Local).AddTicks(2413),
                             Name = "Art And Music"
                         },
                         new
                         {
                             Id = 5L,
                             CentreId = 3L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(6649),
+                            CreationTime = new DateTime(2021, 10, 23, 20, 28, 17, 659, DateTimeKind.Local).AddTicks(2415),
                             Name = "Language And Speech"
                         });
                 });
@@ -497,10 +426,15 @@ namespace AmeliorateAegis.Data.Migrations
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<long>("ProgrammeId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("PupilId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProgrammeId");
 
                     b.HasIndex("PupilId");
 
@@ -526,8 +460,8 @@ namespace AmeliorateAegis.Data.Migrations
                     b.Property<long>("PupilId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("TeacherId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("TeacherId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -549,8 +483,17 @@ namespace AmeliorateAegis.Data.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AddressLine1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AddressLine2")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long>("CentreId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -564,11 +507,17 @@ namespace AmeliorateAegis.Data.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("ParentId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("ParentId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<long?>("TeacherId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Suburb")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TeacherId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -579,118 +528,6 @@ namespace AmeliorateAegis.Data.Migrations
                     b.HasIndex("TeacherId");
 
                     b.ToTable("Pupils");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CentreId = 1L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(3318),
-                            DoB = new DateTime(2016, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(4139),
-                            FirstName = "Peter",
-                            LastName = "Pope",
-                            ParentId = 1L,
-                            TeacherId = 1L
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CentreId = 2L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(5009),
-                            DoB = new DateTime(2017, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(5047),
-                            FirstName = "Amahle",
-                            LastName = "Qweba",
-                            ParentId = 2L,
-                            TeacherId = 1L
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            CentreId = 3L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(5077),
-                            DoB = new DateTime(2016, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(5079),
-                            FirstName = "Junior",
-                            LastName = "Doe",
-                            ParentId = 3L,
-                            TeacherId = 1L
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            CentreId = 2L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(5081),
-                            DoB = new DateTime(2017, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(5082),
-                            FirstName = "Jerry",
-                            LastName = "Doe",
-                            ParentId = 4L,
-                            TeacherId = 1L
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            CentreId = 1L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(5084),
-                            DoB = new DateTime(2015, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(5085),
-                            FirstName = "JJ",
-                            LastName = "Doe",
-                            ParentId = 5L,
-                            TeacherId = 1L
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            CentreId = 3L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(5087),
-                            DoB = new DateTime(2017, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(5088),
-                            FirstName = "Mihle",
-                            LastName = "Newton",
-                            ParentId = 6L,
-                            TeacherId = 1L
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            CentreId = 2L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(5089),
-                            DoB = new DateTime(2016, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(5090),
-                            FirstName = "Sinazo",
-                            LastName = "Qweba",
-                            ParentId = 7L,
-                            TeacherId = 1L
-                        },
-                        new
-                        {
-                            Id = 8L,
-                            CentreId = 3L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(5092),
-                            DoB = new DateTime(2015, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(5093),
-                            FirstName = "Buhle",
-                            LastName = "Soze",
-                            ParentId = 8L,
-                            TeacherId = 1L
-                        },
-                        new
-                        {
-                            Id = 9L,
-                            CentreId = 1L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(5095),
-                            DoB = new DateTime(2017, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(5096),
-                            FirstName = "Khaya",
-                            LastName = "Khwili",
-                            ParentId = 9L,
-                            TeacherId = 1L
-                        },
-                        new
-                        {
-                            Id = 10L,
-                            CentreId = 3L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(5097),
-                            DoB = new DateTime(2016, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(5098),
-                            FirstName = "Kubeka",
-                            LastName = "Khehle",
-                            ParentId = 10L,
-                            TeacherId = 1L
-                        });
                 });
 
             modelBuilder.Entity("AmeliorateAegis.Models.Regional", b =>
@@ -722,42 +559,36 @@ namespace AmeliorateAegis.Data.Migrations
                     b.ToTable("Regionals");
                 });
 
-            modelBuilder.Entity("AmeliorateAegis.Models.Teacher", b =>
+            modelBuilder.Entity("AmeliorateAegis.Models.Visitors.ScheduleVisit", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreationTime")
+                    b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DoB")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Duration")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("ReasonForVisit")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Qualification")
+                    b.Property<string>("RegionalId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Time")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VisitDescr")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Teachers");
+                    b.HasIndex("RegionalId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CreationTime = new DateTime(2021, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(1390),
-                            DoB = new DateTime(1976, 10, 12, 14, 10, 45, 827, DateTimeKind.Local).AddTicks(2292),
-                            FirstName = "Margaret",
-                            LastName = "Van Hum",
-                            Qualification = "Bachelor Of Education In Child Development"
-                        });
+                    b.ToTable("ScheduleVisits");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -969,15 +800,72 @@ namespace AmeliorateAegis.Data.Migrations
                     b.Property<long?>("CentreId")
                         .HasColumnType("bigint");
 
+                    b.Property<DateTime?>("CreationTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasIndex("CentreId");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
+                });
+
+            modelBuilder.Entity("AmeliorateAegis.Models.Parents.Parent", b =>
+                {
+                    b.HasBaseType("AmeliorateAegis.Models.ApplicationUser");
+
+                    b.Property<DateTime>("DoB")
+                        .HasColumnType("datetime2");
+
+                    b.HasDiscriminator().HasValue("Parent");
+                });
+
+            modelBuilder.Entity("AmeliorateAegis.Models.Regionals.RegionalCoordinator", b =>
+                {
+                    b.HasBaseType("AmeliorateAegis.Models.ApplicationUser");
+
+                    b.HasDiscriminator().HasValue("RegionalCoordinator");
+                });
+
+            modelBuilder.Entity("AmeliorateAegis.Models.Teachers.Teacher", b =>
+                {
+                    b.HasBaseType("AmeliorateAegis.Models.ApplicationUser");
+
+                    b.Property<DateTime?>("DoB")
+                        .HasColumnName("Teacher_DoB")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Qualification")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Teacher");
+                });
+
+            modelBuilder.Entity("AmeliorateAegis.Models.Applications.Application", b =>
+                {
+                    b.HasOne("AmeliorateAegis.Models.Centre", "Centre")
+                        .WithMany()
+                        .HasForeignKey("CentreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AmeliorateAegis.Models.Parents.Parent", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AmeliorateAegis.Models.Pupil", "Pupil")
+                        .WithMany()
+                        .HasForeignKey("PupilId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AmeliorateAegis.Models.Attendance", b =>
@@ -988,29 +876,16 @@ namespace AmeliorateAegis.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AmeliorateAegis.Models.Teacher", "Teacher")
+                    b.HasOne("AmeliorateAegis.Models.Teachers.Teacher", "Teacher")
                         .WithMany()
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TeacherId");
                 });
 
             modelBuilder.Entity("AmeliorateAegis.Models.LessonPlan", b =>
                 {
-                    b.HasOne("AmeliorateAegis.Models.Teacher", "Teacher")
+                    b.HasOne("AmeliorateAegis.Models.Teachers.Teacher", "Teacher")
                         .WithMany()
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("AmeliorateAegis.Models.Parent", b =>
-                {
-                    b.HasOne("AmeliorateAegis.Models.Centre", "Centre")
-                        .WithMany()
-                        .HasForeignKey("CentreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TeacherId");
                 });
 
             modelBuilder.Entity("AmeliorateAegis.Models.Programme", b =>
@@ -1037,6 +912,12 @@ namespace AmeliorateAegis.Data.Migrations
 
             modelBuilder.Entity("AmeliorateAegis.Models.ProgrammeEnrollment", b =>
                 {
+                    b.HasOne("AmeliorateAegis.Models.Programme", "Programme")
+                        .WithMany()
+                        .HasForeignKey("ProgrammeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AmeliorateAegis.Models.Pupil", "Pupil")
                         .WithMany("Enrollments")
                         .HasForeignKey("PupilId")
@@ -1064,11 +945,9 @@ namespace AmeliorateAegis.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AmeliorateAegis.Models.Teacher", "Teacher")
+                    b.HasOne("AmeliorateAegis.Models.Teachers.Teacher", "Teacher")
                         .WithMany()
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TeacherId");
                 });
 
             modelBuilder.Entity("AmeliorateAegis.Models.Pupil", b =>
@@ -1079,15 +958,20 @@ namespace AmeliorateAegis.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AmeliorateAegis.Models.Parent", "Parent")
+                    b.HasOne("AmeliorateAegis.Models.Parents.Parent", "Parent")
                         .WithMany("Pupils")
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ParentId");
 
-                    b.HasOne("AmeliorateAegis.Models.Teacher", "Teacher")
+                    b.HasOne("AmeliorateAegis.Models.Teachers.Teacher", "Teacher")
                         .WithMany("Pupils")
                         .HasForeignKey("TeacherId");
+                });
+
+            modelBuilder.Entity("AmeliorateAegis.Models.Visitors.ScheduleVisit", b =>
+                {
+                    b.HasOne("AmeliorateAegis.Models.Regionals.RegionalCoordinator", "Regional")
+                        .WithMany()
+                        .HasForeignKey("RegionalId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

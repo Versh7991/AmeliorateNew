@@ -8,5 +8,6 @@ namespace AmeliorateAegis.Utility
         public const string ProvincialLiason = "ProvincialLiason";
         public const string RegionalManager = "RegionalManager";
         public const string Parent = "Parent";
+        public const string RegionalCoordinator = "RegionalCoordinator";
     }
 }

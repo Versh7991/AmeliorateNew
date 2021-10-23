@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace AmeliorateAegis.Areas.Teacher.Controllers
@@ -58,7 +59,7 @@ namespace AmeliorateAegis.Areas.Teacher.Controllers
                     var newRecord = new Attendance
                     {
                         PupilId = pupilId,
-                        TeacherId = 1
+                        TeacherId = User.FindFirstValue(ClaimTypes.NameIdentifier)
                     };
                     _db.Add(newRecord);
                     await _db.SaveChangesAsync();
