@@ -124,6 +124,8 @@ namespace AmeliorateAegis.Areas.Identity.Pages.Account
                     return RedirectToAction("Index", "Dashboard", new { area = "Manager" });
                 case SD.Parent:
                     return RedirectToAction("Index", "Applications", new { area = "Parent" });
+                case SD.RegionalCoordinator:
+                    return RedirectToAction("List", "Centres", new { area = "Regional" });
                 default:
                     return RedirectToAction("Index", "Home", new { area = "Public" }); ;
             }
