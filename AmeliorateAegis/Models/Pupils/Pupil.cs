@@ -17,6 +17,7 @@ namespace AmeliorateAegis.Models
         public DateTime CreationTime { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        [DataType(DataType.Date)]
         public DateTime DoB { get; set; }
         [ForeignKey(nameof(ParentId))]
         public Parent Parent { get; set; }
@@ -27,12 +28,16 @@ namespace AmeliorateAegis.Models
         [ForeignKey(nameof(TeacherId))]
         public Teacher Teacher { get; set; }
         public string TeacherId { get; set; }
+        [Display(Name = "Line 1")]
         public string AddressLine1 { get; set; }
+        [Display(Name = "Line 2")]
         public string AddressLine2 { get; set; }
         public string Suburb { get; set; }
         public string City { get; set; }
         public string Province { get; set; }
 
+        [NotMapped]
+        public string FullName => FirstName + " " + LastName;
         public ICollection<ProgrammeEnrollment> Enrollments { get; set; }
         public ICollection<ProgressReport> Reports { get; set; }
 

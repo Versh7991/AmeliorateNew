@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AmeliorateAegis.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace AmeliorateAegis.Areas.Parent.Controllers
@@ -9,9 +12,20 @@ namespace AmeliorateAegis.Areas.Parent.Controllers
     [Area("Parent")]
     public class ChildrenController : Controller
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext _db;
+
+        public ChildrenController(ApplicationDbContext db)
         {
-            return View();
+            _db = db;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var children = await _db.Pupils
+                .Where(x => x.ParentId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .ToListAsync();
+
+            return View(children);
         }
     }
 }

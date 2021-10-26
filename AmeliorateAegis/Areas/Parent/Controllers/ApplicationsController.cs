@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AmeliorateAegis.Data;
 using AmeliorateAegis.Models.Applications;
+using System.Security.Claims;
+using AmeliorateAegis.Areas.Parent.Models;
 
 namespace AmeliorateAegis.Areas.Parent.Controllers
 {
@@ -23,8 +25,12 @@ namespace AmeliorateAegis.Areas.Parent.Controllers
         // GET: Parent/Applications
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Application.Include(a => a.Centre).Include(a => a.Parent).Include(a => a.Pupil);
-            return View(await applicationDbContext.ToListAsync());
+            var applications = await _context.Applications
+                .Where(x => x.ParentId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .Include(x => x.Pupil)
+                .Include(x => x.Centre)
+                .ToListAsync();
+            return View(applications);
         }
 
         // GET: Parent/Applications/Details/5
@@ -40,6 +46,7 @@ namespace AmeliorateAegis.Areas.Parent.Controllers
                 .Include(a => a.Parent)
                 .Include(a => a.Pupil)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (application == null)
             {
                 return NotFound();
@@ -51,28 +58,37 @@ namespace AmeliorateAegis.Areas.Parent.Controllers
         // GET: Parent/Applications/Create
         public IActionResult Create()
         {
-            ViewData["CentreId"] = new SelectList(_context.Centres, "Id", "Id");
-            ViewData["ParentId"] = new SelectList(_context.Parents, "Id", "Id");
-            ViewData["PupilId"] = new SelectList(_context.Pupils, "Id", "Id");
+            ViewData["CentreId"] = new SelectList(_context.Centres, "Id", "Name");
             return View();
         }
 
         // POST: Parent/Applications/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CreationTime,ModifiedTime,ParentId,PupilId,CentreId,Status")] Application application)
+        public async Task<IActionResult> Create(ApplicationInput application)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(application);
+                var pupilInput = application.Pupil;
+                pupilInput.CentreId = application.CentreId;
+                pupilInput.ParentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                var pupil = await _context.Pupils.AddAsync(pupilInput);
+
+                await _context.SaveChangesAsync();
+
+                var input = new Application
+                {
+                    CentreId = application.CentreId,
+                    PupilId = pupil.Entity.Id,
+                    ParentId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    Status = ApplicationStatus.PENDING
+                };
+                _context.Add(input);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CentreId"] = new SelectList(_context.Centres, "Id", "Id", application.CentreId);
-            ViewData["ParentId"] = new SelectList(_context.Parents, "Id", "Id", application.ParentId);
-            ViewData["PupilId"] = new SelectList(_context.Pupils, "Id", "Id", application.PupilId);
+            ViewData["CentreId"] = new SelectList(_context.Centres, "Id", "Name", application.CentreId);
             return View(application);
         }
 
@@ -100,7 +116,7 @@ namespace AmeliorateAegis.Areas.Parent.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,CreationTime,ModifiedTime,ParentId,PupilId,CentreId,Status")] Application application)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,ParentId,PupilId,CentreId,Status")] Application application)
         {
             if (id != application.Id)
             {

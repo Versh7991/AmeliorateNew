@@ -17,13 +17,7 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.CreationTime)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.ModifiedTime)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Parent)
+                                        Date Applied
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.Pupil)
@@ -34,35 +28,39 @@
                                     <th>
                                         @Html.DisplayNameFor(model => model.Status)
                                     </th>
-                                    <th></th>
+                                    <th>
+                                        Actions
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
+                                    var date = item.CreationTime.ToShortDateString();
+                                    var status = item.Status.ToString();
+
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.CreationTime)
+                                            @Html.DisplayFor(modelItem => date)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.ModifiedTime)
+                                            @Html.DisplayFor(modelItem => item.Pupil.FullName)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Parent.Id)
+                                            @Html.DisplayFor(modelItem => item.Centre.Name)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Pupil.Id)
+                                            @Html.DisplayFor(modelItem => status)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Centre.Id)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Status)
-                                        </td>
-                                        <td>
-                                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                            <a asp-action="Edit" asp-route-id="@item.Id">
+                                                <i class="material-icons text-success">edit</i></a> 
+                                            <a asp-action="Details" asp-route-id="@item.Id">
+                                                <i class="material-icons text-info">info</i>
+                                            </a> 
+                                            <a asp-action="Delete" asp-route-id="@item.Id">
+                                                <i class="material-icons text-danger">delete</i>
+                                            </a>
                                         </td>
                                     </tr>
                                 }
