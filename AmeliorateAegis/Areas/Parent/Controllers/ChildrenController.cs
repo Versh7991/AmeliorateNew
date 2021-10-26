@@ -1,4 +1,6 @@
 ﻿using AmeliorateAegis.Data;
+using AmeliorateAegis.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +12,7 @@ using System.Threading.Tasks;
 namespace AmeliorateAegis.Areas.Parent.Controllers
 {
     [Area("Parent")]
+    [Authorize(Roles = SD.Parent)]
     public class ChildrenController : Controller
     {
         private readonly ApplicationDbContext _db;

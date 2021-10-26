@@ -1,5 +1,7 @@
 ﻿using AmeliorateAegis.Areas.Regional.Models;
 using AmeliorateAegis.Data.Services.Regional.Centres;
+using AmeliorateAegis.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,8 @@ using System.Threading.Tasks;
 namespace AmeliorateAegis.Areas.Regional.Controllers
 {
     [Area("Regional")]
+
+    [Authorize(Roles = SD.RegionalCoordinator)]
     public class CentresController : Controller
     {
         private readonly ICentreService _centreService;

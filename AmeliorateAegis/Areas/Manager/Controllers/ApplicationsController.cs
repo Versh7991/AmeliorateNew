@@ -1,5 +1,7 @@
 ﻿using AmeliorateAegis.Data;
 using AmeliorateAegis.Models.Applications;
+using AmeliorateAegis.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +14,8 @@ using System.Threading.Tasks;
 namespace AmeliorateAegis.Areas.Manager.Controllers
 {
     [Area("Manager")]
+
+    [Authorize(Roles = SD.RegionalManager)]
     public class ApplicationsController : Controller
     {
         private readonly ApplicationDbContext _db;

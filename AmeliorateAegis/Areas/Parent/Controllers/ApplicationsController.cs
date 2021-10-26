@@ -9,10 +9,14 @@ using AmeliorateAegis.Data;
 using AmeliorateAegis.Models.Applications;
 using System.Security.Claims;
 using AmeliorateAegis.Areas.Parent.Models;
+using Microsoft.AspNetCore.Authorization;
+using AmeliorateAegis.Utility;
 
 namespace AmeliorateAegis.Areas.Parent.Controllers
 {
     [Area("Parent")]
+
+    [Authorize(Roles = SD.Parent)]
     public class ApplicationsController : Controller
     {
         private readonly ApplicationDbContext _context;
