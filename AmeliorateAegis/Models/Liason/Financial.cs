@@ -32,5 +32,10 @@ namespace AmeliorateAegis.Models
         public string Region { get; set; }
 
         public double totalAmount { get; set; }
+
+        internal void Add(Financial lPupils)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

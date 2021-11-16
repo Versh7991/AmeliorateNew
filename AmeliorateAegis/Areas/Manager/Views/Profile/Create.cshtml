@@ -1,0 +1,221 @@
+﻿@*@model AmeliorateAegis.Models.Manager
+@{
+    ViewData["Title"] = "Register";
+}
+<div id="privacy" class="container-fluid text-center">
+    <i class="fas fa-user-lock" style="font-size: 90px; color: darkorange;"></i>
+    <h1 class="display-4 text-info text-center">
+        Register User Account
+    </h1>
+    <p class="text-info text-center" color: darkorange><i>Fill in the form below to create user account.</i></p>
+</div>
+<hr />
+<div class="border container" style="padding:30px;">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <input asp-for="UserId" class="form-control" hidden="hidden" />
+        </div>
+
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="FirstName" class="control-label"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="FirstName" class="form-control" />
+            </div>
+            <div>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Surname" class="control-label"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Surname" class="form-control" />
+            </div>
+            <div>
+                <span asp-validation-for="Surname" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row ">
+            <div class="col-3">
+                <label asp-for="Gender" class="control-label"></label>
+            </div>
+            <div class="col-6">
+                <input type="radio" name="Gender" value="Male" />Male
+                <input type="radio" name="Gender" value="Female" />Male
+                <input type="radio" name="Gender" value="Other" />Other
+            </div>
+            <div>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="IDNumber" class="control-label"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="IDNumber" class="form-control" />
+            </div>
+            <div>
+                <span asp-validation-for="IDNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Title" class="control-label"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Title" class="form-control" />
+            </div>
+            <div>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="HomePhone" class="control-label"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="HomePhone" class="form-control" />
+            </div>
+            <div>
+                <span asp-validation-for="HomePhone" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="PhoneNumber" class="form-control" />
+            </div>
+            <div>
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="ProfilePicture" class="control-label"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="ProfilePicture" type="file" class="form-control" />
+            </div>
+            <div>
+                <span asp-validation-for="ProfilePicture" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Email" class="control-label"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Email" class="form-control" />
+            </div>
+            <div>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="AddressLine1" class="control-label"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="AddressLine1" class="form-control" />
+            </div>
+            <div>
+                <span asp-validation-for="AddressLine1" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="AddressLine2" class="control-label"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="AddressLine2" class="form-control" />
+            </div>
+            <div>
+                <span asp-validation-for="AddressLine2" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row ">
+            <div class="col-3">
+                <label asp-for="StartDate" class="control-label"></label>(Contract)
+            </div>
+            <div class="col-6">
+                <input type="datetime-local" name="StartDate" value="StartDate" />
+
+            </div>
+            <div>
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row ">
+            <div class="col-3">
+                <label asp-for="EndDate" class="control-label"></label>(Contract)
+            </div>
+            <div class="col-6">
+                <input type="datetime-local" name="EndDate" value="EndDate" />
+
+            </div>
+            <div>
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row ">
+            <div class="col-3">
+                <label asp-for="UserRole" class="control-label"></label>
+            </div>
+            <div class="col-6">
+                <input type="radio" name="UserRole" value="Parent" />Parent
+                <input type="radio" name="UserRole" value="Manager" />Manager
+                <input type="radio" name="UserRole" value="Visitor" />Visitor
+                <input type="radio" name="UsreRole" value="Teacher" />Teacher
+                <input type="radio" name="UserRole" value="Other" />Other
+            </div>
+            <div>
+                <span asp-validation-for="UserRole" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Password" class="control-label"></label>
+            </div>
+            <div class="col-3">
+                <input asp-for="Password" class="form-control" />
+            </div>
+            <div>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="ConfirmPassword" class="control-label"></label>
+            </div>
+            <div class="col-3">
+                <input asp-for="ConfirmPassword" class="form-control" />
+            </div>
+            <div>
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row  ">
+            <div class="col-3 offset-3">
+                <button type="submit" class="btn btn-primary form-control">
+                    Register
+                </button>
+            </div>
+            <div class="col-3">
+                <a asp-action="RegisterCenter" asp-controller="Home" class="btn btn-success form-control"> Home Page</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}*@

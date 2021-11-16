@@ -45,5 +45,10 @@ namespace AmeliorateAegis.Models
         {
             CreationTime = DateTime.Now;
         }
+
+        internal void Add(Pupil lPupil)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

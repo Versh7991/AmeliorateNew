@@ -102,6 +102,11 @@ namespace AmeliorateAegis.Reports
             return pdfPTable;
         }
 
+        internal byte[] Report(object pupils)
+        {
+            throw new NotImplementedException();
+        }
+
         private PdfPTable SetPageTitle()
         {
             int maxColumn = 4;

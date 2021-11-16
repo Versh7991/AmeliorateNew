@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using AmeliorateAegis.Models.Applications;
+using AmeliorateAegis.Models.Regionals;
+using AmeliorateAegis.Models.Manager;
 
 namespace AmeliorateAegis.Data
 {
@@ -35,10 +37,11 @@ namespace AmeliorateAegis.Data
         public DbSet<Regional> Regionals { get; set; }
         public DbSet<Financial> Financials { get; set; }
         public DbSet<Profile> Profiles { get; set; }
+        
 
         public DbSet<Meeting> Meetings { get; set; }
 
-
+        public DbSet<Report> reports { get; set; }
         // Regional Coordinator
         public DbSet<Centre> Centre { get; set; }
         public DbSet<ScheduleVisit> ScheduleVisits { get; set; }

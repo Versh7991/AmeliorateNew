@@ -17,5 +17,6 @@ namespace AmeliorateAegis.Areas.Manager.Controllers
         {
             return View();
         }
+
     }
 }

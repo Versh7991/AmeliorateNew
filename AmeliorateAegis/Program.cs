@@ -16,6 +16,8 @@ namespace AmeliorateAegis
 {
     public class Program
     {
+        public static object CentreId { get; internal set; }
+
         public async static Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();

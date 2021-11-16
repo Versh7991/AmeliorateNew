@@ -22,6 +22,7 @@ namespace AmeliorateAegis.Models
         public Programme()
         {
             CreationTime = DateTime.Now;
+           
         }
     }
 }

@@ -5,11 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using AmeliorateAegis.Areas.Parent.Models;
 
 namespace AmeliorateAegis.Areas.Manager.Controllers
 {
@@ -24,7 +22,39 @@ namespace AmeliorateAegis.Areas.Manager.Controllers
         {
             _db = db;
         }
+        public IActionResult Create()
+        {
+            ViewData["CentreId"] = new SelectList(_db.Centres, "Id", "Name");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(ApplicationInput application)
+        {
+            if (ModelState.IsValid)
+            {
+                var pupilInput = application.Pupil;
+                pupilInput.CentreId = application.CentreId;
+                pupilInput.ParentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+                var pupil = await _db.Pupils.AddAsync(pupilInput);
+
+                await _db.SaveChangesAsync();
+
+                var input = new Application
+                {
+                    CentreId = application.CentreId,
+                    PupilId = pupil.Entity.Id,
+                    ParentId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    Status = ApplicationStatus.PENDING
+                };
+                _db.Add(input);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["CentreId"] = new SelectList(_db.Centres, "Id", "Name", application.CentreId);
+            return View(application);
+        }
         public async Task<IActionResult> Index()
         {
             var applications = await _db.Applications
@@ -72,6 +102,8 @@ namespace AmeliorateAegis.Areas.Manager.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return RedirectToAction(nameof(View));
+
+
         }
     }
 }
