@@ -32,7 +32,7 @@
                     <tr>
                         <td>@budget.BudgetDescr</td>
                         <td>@budget.Date</td>
-                        <td>@budget.BudgetID</td>
+                        @*<td>@budget.BudgetID</td>*@
                         <td>
                             @*<a asp-controller="Budget" asp-action="AddBudget" class="btn btn-info form-control text-white">View</a>*@
                             <a asp-controller="Report" asp-action="DownloadBudgetReport" asp-route-BudgetID="@budget.BudgetID" class="text-primary"><i class="material-icons">description</i></a>
